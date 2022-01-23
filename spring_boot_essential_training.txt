@@ -1,0 +1,51 @@
+There is a requirement to output all student in a class into rows of an HTML table. Which command would accomplish this task?
+answer : <tr th:each="student:${class}">
+
+
+always make sure to activate anyone of the environment profiles
+
+
+
+if requested template not found error
+in application.properties paste the below code
+
+spring.thymeleaf.prefix=classpath:/templates/
+spring.thymeleaf.suffix=.html 
+
+for Templates
+@Controller
+@RequestMapping("/path",method=RequestMethod.GET)
+
+for RestServices
+@RestController
+@GetMapping("/path")
+
+
+Spring security
+
+Full support for form-based authentication
+create extension of webSecurityConfigureAdapter
+use @EnableWebSecurity(removes all basic security configuration)
+Backed with datastore or in-memory(demo only)
+Full support for OAuth2, Server, and client
+Default implementation out of the box, using @EnableOAuth2Client annotation
+
+Simple authorization server can be created with the annotation @EnableAuthorization Server, and it can be customized
+
+ResourceServer is just as simple: @EnableResourceServer
+
+Not on Hashing
+Passwords should be hashed, not encrypted
+SHA-1 should be considered owned
+Bcrypt is industry standard and should be used for form-based authentication
+
+Implementation
+
+in pom.xml
+add dependency
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-security</artifactId>
+	
+</dependency>
+

@@ -1,0 +1,90 @@
+Spring framework is a Java development framework which is used to create web applications and enterprise applications.
+
+Advantages of Spring framework:
+
+dependency injection
+database transaction management
+integration with other java frameworks
+web MVC framework for building web apps
+
+
+Spring boot was built on spring framework
+Spring boot is an extension of Spring framework
+The main goal of Spring Boot is to quickly create production ready Spring-based applications without requiring developers to write the same boilerplate configuration again and again
+
+Spring boot key features:
+
+Spring boot starters
+Spring boot autoConfiguration
+Externalized Configuration
+Spring Boot acutators
+easy to use embedded servlet container support
+
+Spring based applications have a lot of Configuration.
+when we use spring MVC, we need to configure
+	Component scan, Dispatcher Servlet, View resolver, Web jars(for delivering static content) among other things
+
+when we use Hibernate/JPA, we would need to configure a 
+	data source, entity manager factory/session factory, transaction manager
+
+when we use cache
+	cache configuration
+
+when we use Message queue
+	Message queue Configuration
+
+when we use NOSQL database
+	Nosql database configuration
+
+
+Spring Boot takes care of all these configuration
+
+
+spring-boot-started-web includes all commonly used libraries to develop web app
+
+
+
+Spring Boot AutoConfiguration attempts to automatically configure your spring application based on the jar dependencies that you have added.
+
+Externalized Configuration helps in deploying your spring applications in different environments.
+
+Different ways to create spring Boot Project:
+	using spring initializer
+	using spring starter project in STS(Eclipse)
+	Spring Boot CLI: the spring boot cli is a command line tool that you can use if you want to quickly develop a spring application.
+
+
+spring initializer : start.spring.io
+
+Spring boot tool in eclipse
+
+Spring boot cli:
+
+
+if want to deploy our application in other environment select packaging as war
+
+spring-boot-starter-web used to create:
+	spring web application
+	spring REST API application
+
+to check Auto Configuration in properties write (logging.level.org.springframework.web=debug)
+
+@RestController : it will make class as a restfull and allows that class to serve rest end points
+@GetMapping : rest end points
+
+
+import java.utils.List
+for auto import Shift+Ctrl+O
+
+
+Controller and db files should be  inside src.main.java.application_name
+
+Service layer is mainly responsible for business logic
+
+
+Dependency injections
+
+to automatically instantiate
+
+@Service : for class which has to be automatically instantitated
+@Autowired : for method which needs auto instantiate

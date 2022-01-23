@@ -1,0 +1,82 @@
+Github is a website that helps us to host our git repository
+git helps us to maintain our code history and many people contributing to the same project via git and github
+
+all the history of our project is stored in git repository
+to get that git repository : git init
+
+touch names.txt to create new file
+git status : to get all the unsaved changes  history
+
+git add . : add all files in current  directory(whose history hasn't saved) to save their history in our repository
+git add names.txt : to add individual files(wedding example get them on to the stage)
+git commit -m "names.txt files added"(wedding example click a picture of them to store the history)
+
+
+git config --global user.name Sunil
+git config --global user.email sunilms2120@gmail.com
+to let others know that this person has changed the code
+
+ls -lart gives all the hidden folders
+
+git add . : add all files in cur folder to stagging area
+git commit -m "message" : take a snapshot of files in stagging area with it's message
+git checkout contact.html : match the file with last commit
+git checkout -f : matches all the files with the last commit
+git log : to get all commits made so far
+git log -p -2: to get latest 2 commits
+
+git diff : gives the difference between cur working dir and stagging area
+git diff --staged : gives the difference between stagging area and last commit
+
+git commit -a -m "message" : to skip sending dir to stagging area and to directly commit it
+
+git rm --cached contact.html : removes file only from stagging area(from tracking)
+git rm contact.html : removes files both from working dir and from stagging area
+
+git status -s
+
+to ignore files for adding and commiting
+
+create .gitignore 
+
+touch .gitignore
+in this file write all the files which you want to ignore
+
+in .gitignore
+*.log : ignore all the files with .log extension
+ignore/ : ignore all the files in ignore dir
+
+branch is copy of existing code
+git branch feature1 : to create new branch feature1
+git branch : list all branches available
+git checkout feature1 : to work with branch feature1
+
+git checkout -b feature2 : to create newe branch feature2 and as well as go to that branch
+
+
+to attach a url to my local working repository(or hosting our rep)
+origin is alias for the url
+git remote add origin https://github.com/Sunilms2120/GitTutorial
+
+git remote -v : list all the url attached to cur folder
+git push origin master : to push changes to the url origin and to branch master from local repo
+
+to clone project
+git clone https://github.com/Sunilms2120/GitTutorial
+
+we can create a duplicate project by making a pull request by forking 
+from the url we have forked a project is called upstream url
+
+git remote add upstream url
+
+one push per branch
+
+to go back to previous commit structure
+steps:
+copy the hash code
+git reset hashcode
+git add .
+git stash
+
+force push
+git push origin -f
