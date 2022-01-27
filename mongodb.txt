@@ -1,0 +1,107 @@
+MongoDB is a popular NoSQL database written in c++
+MongoDB is a column-oriented NoSql database which stores documents which are like JSON objects.
+
+Difference between MongoD and Mongo
+
+Mongo is the command-line shell that connects to a specific instance of mongod
+
+mongod is the "Mongo Daemon" it's basically the host process for the database
+
+Mysql        Mongodb
+database  	 database
+tables		 collections
+rows 		 documents(BSON)
+columns		 fields
+
+Mongodb commands
+show dbs: to view all databases
+use dbName : to create a new database or to switch to another database
+db : to view current database
+
+db.dropDatabase() : to delete database
+
+to get all the tables in present database
+show collections
+
+to create tables
+db.createCollection("table_name")
+
+to delete tables
+db.table_name.drop()
+
+Mongodb commands for rows
+Insert rows
+db.table_name.insert({'title':title,
+'body':body,'head':head});
+
+to insert many rows
+db.table_name.insertMany([{},{},{}]);
+
+db.contents.insertMany([
+
+{'title':'title1','head':'head1'},
+{'title':'title2','head':'head2'},
+{'title':'title3','head':'head3'}]
+);
+
+to uniquely identify a row MongoDB automatically gives each row a ObjectId
+
+to get all the rows
+db.table_name.find()
+
+to search for rows based on a condition
+select * from table_name where key1=value1 and key2=value2;
+db.table_name.find({key1:val1,key2:val2});
+
+select key1 from table_name where key1=value1 and key2=value2;
+db.table_name.find({key1:val1,key2:val2},{head:1});
+
+Limit the number of rows in output
+select * from table where condition LIMIT 5;
+
+db.table_name.find({condition}).limit(5);
+
+select count(*) from table where condition;
+
+db.table_name.find({condition}).count();
+
+order by
+
+select * from table where condition order by (attr1);
+
+db.table_name.find().sort({att1:1,att2:1});
+
+to get the first row that matches the object
+db.table_name.findOne({head:'head1',title:'title2'});
+
+update
+db.table_name.update({head:'head1'},{head:'head2',title:"TITLE"},{upsert:true});
+this will search for a match if match not found then it will add that particular object
+
+ db.contents.update({head:'head7'},{head:'HEAD',title:'TITLE'},{upsert:true});
+
+ Mongodb rename operator
+
+ db.contents.update({head:'head7'},{$rename{head:'HEAD',title:'TITLE'}});
+
+ delete operator
+
+ delete from table_name where condition
+ db.contents.remove({head:'head1',title:'title1'});
+ delete from table_name;//removes all the rows
+ db.contents.remove()//removes all the documents
+
+ less then
+
+ select * from table_name where age < 20;
+
+ db.contents.find({age:{$lt:20}});
+
+greater then
+db.contents.find({age:{$gt:20}});
+
+
+Mongo atlas
+
+
+

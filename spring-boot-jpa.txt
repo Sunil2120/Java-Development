@@ -1,0 +1,2 @@
+JDBC is a java based API which helps in connecting to database
+ORM is object relational mapping objects/instances are directly mapped to table  rows and columns

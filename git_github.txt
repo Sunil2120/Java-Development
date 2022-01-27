@@ -53,6 +53,10 @@ git checkout feature1 : to work with branch feature1
 
 git checkout -b feature2 : to create newe branch feature2 and as well as go to that branch
 
+to merge master and feature1 branches in master branch
+git checkout master
+git merge feature1
+
 
 to attach a url to my local working repository(or hosting our rep)
 origin is alias for the url
@@ -80,3 +84,16 @@ git stash
 
 force push
 git push origin -f
+
+
+if u have multiple subfolders to change content sub folders
+create branch of main folder and work with master of all sub folders
+
+steps
+fork
+clone
+cd project name
+create branch
+work
+commit
+comeback and push

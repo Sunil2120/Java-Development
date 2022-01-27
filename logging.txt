@@ -1,0 +1,54 @@
+Log4j2 API has more advantages
+it will provide us the logging capabilities
+
+It will be helps us to implement logging in our java applications
+it has improved performance
+
+logs will be saved in logfiles so that we can refer them later on
+
+spring boot comes inbuilt with log4j
+we will be present in springboot-starter dependency
+
+private static final Logger LOG = LogManager.getLogger(Application.class.getCanonicalName());
+
+we can configure our loggers using XML,json,Yaml 
+most popular xml
+in XML file
+name should be log4j2.xml
+root level ="error" this will be the default level for all the packages where we use logger
+Appenders will specify where to append the logs
+
+https://stackoverflow.com/questions/23296477/how-to-have-spring-boot-use-a-log4j-xml-configuration-file
+use second answer given
+to prevent spring boot by using logback which has higher predency and to make spring boot use log4j
+
+ <Logger name="com.example.Log4j.Log4jdemo.Controller" level="error" additivity="false">
+            <AppenderRef ref="Console"/>
+ </Logger>
+
+ name is the name of the package for which  we want to specific the level 
+
+ additivity = false : only custom logger message according to the level will be printed
+ additivity = true: both in root and in custom logger message according to the level will be printed
+
+    to append the logs to file 
+
+    filename : to specify the name of first file to store logs
+    filePattern : if the size of the first file excedds size=500 kb, new log files will be created by this name
+    properties : this tag is used give alias names ex: it will replace all "${filename}" by ./logs according to example below
+
+     <Properties>
+        <Property name="filename">./logs</Property>
+    </Properties>
+  <RollingFile name="file_logs" filename="${filename}/file_logs.log"
+                     filePattern = "${filename}/file_logs.log" append="true">
+            <PatternLayout pattern="[%t] %-5level %logger{36} - %msg%n"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="500 KB"/>
+            </Policies>
+    </RollingFile>
+
+
+refer youtube channel
+Software Testing Mentor
+37.4K subscribers

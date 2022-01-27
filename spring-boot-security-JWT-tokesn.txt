@@ -1,0 +1,9 @@
+JWT : JSON Web Token  a way to authorize our API request using token based authorization
+
+JWT has three parts:
+
+Header : contains which algo is used to encode/decode the  entire JWT tokens
+Payload : values that are used to pass the tokens
+Signature : it will be created based on the server authentication
+
+add dependencies jjwt and javax

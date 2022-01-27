@@ -1,0 +1,5 @@
+include dependency Spring Data MongoDB
+
+start mongodb server : go to cmd and type mongod 
+to start the client : type mongo
+
