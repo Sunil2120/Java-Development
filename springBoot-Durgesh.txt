@@ -1,0 +1,347 @@
+What is Spring Boot?
+spring boot is module of Spring from which we speed up the development
+
+Spring boot makes it easy to create stand-alone, production-grade spring based applications that you can "just run"
+
+It provides an easier and faster way to setup, configure, and run both simple and web-based applications.
+spring framework + embedded servers - configuration = spring boot
+
+convention over configuration software design style. It decreases the effort of the developer.
+
+scan the classpath  and find the dependency it will automatically configure the things.
+
+Advantages of spring boot:
+it creates stand-alone spring applications that can be started using java -jar.
+Embed Tomcat, Jetty or Undertow directly (no need to deploy WAR files)
+provide opinionated 'starter' dependencies to simplify your build configuration
+Automatically configure spring and 3rd party libraries whenever possible
+provide production-ready features such as metrics,health checks and externalized configuration
+absolutely no code generation and no requirement for xml configuration
+
+Spring boot auto-configuration
+
+POM: project object Model
+
+When we add starter jars then it pull all the jars
+
+POM starter
+spring-boot-starter
+spring-boot-starter-web
+
+
+Autoconfiguration jar is also pulled
+auto-configuration jar contains meta-inf/spring.factories it has all auto configurations
+
+all dependencies are present in spring.factories
+to enable or disable the dependencies it will scan the pom.xml if present it will enable else disable
+
+jar -> packages --> javafiles
+when we include some dependencies all related jars will be downloaded and they will be activated based on some conditions specified.
+
+in application.properties
+
+configur
+spring.mvc.view.prefix = /views/
+spring.mvc.view.suffix = .jsp
+
+use of application.properties
+
+application.properties is used in application configuration which generally stores key-value pairs.
+preconfigured application -------> our customize application
+
+application.yml is also used for the same purpose
+
+
+API: it is a set of rules that allow programs to talk to each other. The developer creates the API on the server and allows the client to talk to it.
+
+our website --request--> youtube server's api
+
+api has functions which works based on the urls 
+
+our website <--response-- youtube server's api
+
+REST(representaional state transfer) it is a subset of API : A set of constraints to be used for creating web services/API.
+
+properties:
+client-server
+stateless
+cacheable
+layered
+
+
+The important methods of HTTP are:
+GET : it reads a resource
+PUT : it updates an existing resource
+POST : it creates a new resource
+DELETE : it deletes the  resource
+
+HTTP also defines the following standard status code:
+404 : resource not found
+200 : success 
+201 : created 
+204 : no content 
+401 : unauthorized 
+500 : server error
+
+spring boot Devtools
+
+DevTools stands for Developer Tool. The aim of the module is to try and imporve the development time while working with the spring Boot application. Spring Boot Devtools pick up the changes and restart the application.
+
+add devtools dependency
+
+Devtools automatically restarts app if changes made
+automatic 
+
+
+@Controller
+
+
+
+@RequestMapping(value="/test",method=RequestMethod.GET)
+@ResponseBody
+public String getBooks(){
+	return "This is testing book";
+}
+
+
+
+
+
+@RestController
+
+
+@GetMapping("/test/{Bookid}")
+public String getBooks(@RequestBody Book book,@PathVariable("Bookid") int bookID){
+	return "This is testing book";
+}
+
+@RequestBody : it will convert the json object we have received from client  to our book object
+
+
+ReponseEntity
+
+@GetMapping("/books")
+public ResponseEntity<List<Book>> getBooks(){
+	List<Book> list = bookService.getAllBooks();
+	if(list.size() <=0)
+	{
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+	}
+	return ResponseEntity.of(Optional.of(list));
+}
+
+by default it will give ok status that is 200 OK
+
+
+@GetMapping("/test/{Bookid}")
+public ResponseEntity<Book> getBooks(@RequestBody Book book,@PathVariable("Bookid") int bookID){
+
+	try{
+
+		this.bookService.updateBook(book,bookID);
+		return ResponseEntity.ok().body(book);//returns both 200 OK HTTP status and also book
+	}
+	catch(Exception e){
+
+		return ResponseEntity.status(HTTPStatus.INTERNAL_SERVER_ERROR).build();
+	}
+}
+
+Important Annotations in spring boot
+
+@SpringBootApplication : @EnableAutoConfiguration + @ComponentScan + @Configuration
+
+@Configuration : This annotation marks a class as a source of bean and can return java beans also.
+
+
+
+@Configuration // source of bean 
+public class  myConfig {
+	
+	@Bean//as it is returning a object of student
+	public Student getStudent(){
+
+		return new Student();
+	}
+}
+
+
+public class service_class{
+	
+	@Autowired//gets automatically instantiated by spring boot because we have a bean returning Student
+	private Student student;
+}
+
+otherway of doing this
+
+creating a class and adding component annotation
+
+@Component//we are telling spring to manage bean of this class
+public class Student{
+	
+
+	
+}
+
+public class service_class{
+	
+	@Autowired//gets automatically instantiated by spring boot because we have a bean returning Student
+	private Student student;
+}
+
+@ComponentScan(basePackages={"package1","package2"}) // to let spring know to scan all these packages to search for the component which helps in autowiring
+
+@Component:
+	@Controller: presentation Layer
+	@Service: Service Layer
+	@Repository: Data Access Object(DAO layer)
+
+
+@Qualifier
+
+
+@Configuration // source of bean 
+public class  myConfig {
+	
+	@Bean//as it is returning a object of student
+	public Student getStudent(){
+
+		return new Student("Student1");
+	}
+
+	@Bean
+	public Student createStudent(){
+
+		return new Student("Student2");
+	}
+}
+
+
+public class service_class{
+	
+	@Autowired//gets automatically instantiated by spring boot because we have a bean returning Student
+	private Student student;
+}
+
+@Autowired
+private Student student;
+//spring container will get confused as there are two beans which returns Student
+to tackle this problem we will use @Qualifier
+
+@Configuration // source of bean 
+public class  myConfig {
+	
+	@Bean("student1")//as it is returning a object of student
+	public Student getStudent(){
+
+		return new Student("Student1");
+	}
+
+	@Bean("student2")
+	public Student createStudent(){
+
+		return new Student("Student2");
+	}
+}
+
+
+public class service_class{
+	
+	@Autowired//gets automatically instantiated by spring boot because we have a bean returning Student
+	@Qualifier("student2")//bean with name student2 will be called and student object will be refrenced accordingly
+	private Student student1;
+
+	@Autowired
+	@Qualifier("student1")
+	private Student student2;
+}
+
+here both object student1 and student2 will be created but object will be referenced according to qualifier
+so we will use @Lazy don't create this object if we are not using it.
+
+@Configuration // source of bean 
+public class  myConfig {
+	
+	@Bean("student1")//as it is returning a object of student
+	@Lazy
+	public Student getStudent(){
+
+		return new Student("Student1");
+	}
+
+	@Bean("student2")
+	@Lazy
+	public Student createStudent(){
+
+		return new Student("Student2");
+	}
+}
+
+
+public class service_class{
+	
+	@Autowired//gets automatically instantiated by spring boot because we have a bean returning Student
+	@Qualifier("student2")//bean with name student2 will be called and student object will be refrenced accordingly
+
+	private Student student1;
+
+	
+}
+
+only student1 object will be created
+
+@ResponseBody
+@RequestBody
+@PathVariable("id")
+	@RequestParam("email") // <input name="email">
+
+
+Spring Security
+
+Spring Boot Security secure our web application by default and further we can customize as per need.
+We just need to add the spring boot start security dependency in our application
+
+Authentication : The identity of users are checked for providing the access to the sysem.
+User is verified. validating that users are whom they claim to be.
+
+Authorization : Giving the user permission to access a specific resource or function.
+
+Filter : A filter is an object that is invoked at the preprocessing and postprocessing of a request.
+
+
+Filter(Authentication) : authentication object is created and sends it to Authentication Manager
+Authentication Manager : It is an interface and it invokes authenticate(Authentication auth) function and it is an interface it has no functionalities and that is the reason we have different Authentication Provider which provides different implementation to the authenticate method
+
+to know which authentication provider is suitable for our authentication object Authentication Manager uses Provider Manager it yes it returns true else false
+
+UserDetailService : it has methods which can fetch data from database and it is used by Authentication Provider
+
+
+Basic Authentication
+AntMatchers
+Role based Authentication
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
